@@ -1,5 +1,5 @@
 {
-  "name": "rubber-ducky-frontend",
+  "name": "fwrog-e-frontend",
   "version": "1.0.0",
   "description": "proof of concept frontend",
   "main": "/src/index.ts",
@@ -20,6 +20,8 @@
     "tailwindcss": "^3.0.23"
   },
   "dependencies": {
-    "solid-js": "^1.4.2"
+    "solid-js": "^1.4.2",
+    "solid-meta": "^0.28.1",
+    "solid-utils": "^0.8.1"
   }
 }
