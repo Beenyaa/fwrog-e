@@ -45,15 +45,11 @@ export const App: Component = () => {
             >
               <pre data-prefix=" you:" class="text-success">
                 {" "}
-                <code>
-                  test message test message test message test message test
-                  message test message test message test message test message
-                  test message test message test message
-                </code>
+                <code>I am still largely WIP</code>
               </pre>
               <pre data-prefix=" bot:" class="text-primary">
                 {" "}
-                <code>I am still WIP</code>
+                <code>me too</code>
               </pre>
             </div>
           </div>

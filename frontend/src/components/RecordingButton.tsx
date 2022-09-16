@@ -16,7 +16,7 @@ const RecordingButton: Component<Props> = ({ text }) => {
 
   return (
     <button
-      onclick={changeRecordingState()}
+      onClick={() => changeRecordingState()}
       class={`grid flex-grow h-16 w-full max-w-sm btn ${
         recordingStates().class
       } place-items-center shadow-xl shadow-gray-500/50`}
