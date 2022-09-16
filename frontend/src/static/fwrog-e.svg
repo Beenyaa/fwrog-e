@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg viewBox="0 0 500 500" width="500" height="500" xmlns="http://www.w3.org/2000/svg">
+  <g style="" transform="matrix(0.850573, 0, 0, 0.860056, 37.24575, 34.985989)">
+    <title>FWROG-E</title>
+    <path d="M 0.838 121.293 C 0.838 54.303 56.177 0 124.438 0 C 192.7 0 248.04 54.303 248.04 121.293" style="fill: rgba(216, 216, 216, 0); stroke-width: 24px; stroke: rgb(94, 201, 146);">
+      <title>left eyelid</title>
+    </path>
+    <path style="fill: rgba(255, 255, 255, 0); stroke-width: 24px; stroke: rgb(94, 201, 146);" d="M 252.22 121.293 C 252.22 54.303 307.559 0 375.82 0 C 444.082 0 499.422 54.303 499.422 121.293">
+      <title>right eyelid</title>
+    </path>
+    <path d="M 399.047 129.126 C 399.047 196.116 319.482 219.711 251.22 219.711 C 182.957 219.711 100.478 196.116 100.478 129.126" style="fill: rgba(216, 216, 216, 0); stroke-width: 24px; stroke: rgb(94, 201, 146);">
+      <title>mouth</title>
+    </path>
+    <path d="M 60.8 115.912 C 60.8 80.603 88.84 51.979 123.431 51.979 C 158.024 51.979 186.065 80.603 186.065 115.912" style="fill: rgba(216, 216, 216, 0); stroke-width: 24px; stroke: rgb(94, 201, 146);">
+      <title>left eye</title>
+    </path>
+    <path d="M 314.156 115.912 C 314.156 80.603 342.197 51.979 376.789 51.979 C 411.381 51.979 439.421 80.603 439.421 115.912" style="fill: rgba(255, 255, 255, 0); stroke-width: 24px; stroke: rgb(94, 201, 146);">
+      <title>right eye</title>
+    </path>
+    <path d="M 499.425 129.126 C 499.422 196.429 320.482 476.411 252.22 476.411 C 183.959 476.411 0.838 195.177 0.841 129.126" style="fill: rgba(216, 216, 216, 0); stroke-width: 24px; stroke: rgb(94, 201, 146);">
+      <title>body</title>
+    </path>
+    <path d="M 248.04 475.79 C 240.632 475.79 230.396 499.996 162.135 499.996 C 93.873 499.996 101.478 402.095 100.271 335.106" style="fill: rgba(216, 216, 216, 0); stroke-width: 24px; stroke: rgb(94, 201, 146);">
+      <title>left hind leg</title>
+    </path>
+    <path d="M 100.139 335.103 C 92.731 335.103 125.087 499.996 56.825 499.996 C -11.436 499.996 0.863 196.116 0.863 129.126" style="fill: rgba(216, 216, 216, 0); stroke-width: 24px; stroke: rgb(94, 201, 146);">
+      <title>left front leg</title>
+    </path>
+    <path d="M 252.22 475.794 C 259.628 475.794 269.864 500 338.125 500 C 406.387 500 398.782 402.099 399.989 335.11" style="fill: rgba(216, 216, 216, 0); stroke-width: 24px; stroke: rgb(94, 201, 146);">
+      <title>right hind leg</title>
+    </path>
+    <path d="M 400.122 335.107 C 407.53 335.107 375.174 500 443.436 500 C 511.697 500 499.398 196.12 499.398 129.13" style="fill: rgba(216, 216, 216, 0); stroke-width: 24px; stroke: rgb(94, 201, 146);">
+      <title>right front leg</title>
+    </path>
+  </g>
+</svg>

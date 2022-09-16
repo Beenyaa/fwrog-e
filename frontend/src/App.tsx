@@ -1,49 +1,62 @@
-import { createSignal } from "solid-js";
+import { Component, createSignal, For } from "solid-js";
+import { createStore } from "solid-js/store";
+import Nav from "./components/Nav";
+import RecordingButton from "./components/RecordingButton";
 
-export const App = () => {
-  const [count, setCount] = createSignal(0);
+type message = {
+  user: string;
+  msg: string;
+};
+
+function createStyles(user: string) {
+  throw new Error("Function not implemented.");
+}
+
+function getStyles() {
+  throw new Error("Function not implemented.");
+}
+
+export const App: Component = () => {
+  let newUser, newMsg;
+  const [state, setState] = createStore({
+    messages: [],
+  });
 
   return (
     <>
-      <div class="navbar bg-success text-accent-content">
-        <a class="btn btn-ghost normal-case text-xl font-mono">
-          FWROG-E
-        </a>
-      </div>
-      <main>
-        <form>
-          <label for="chat" class="sr-only">
-            Your message
-          </label>
-          <div class="flex items-center py-2 px-3 rounded-lg">
-            <input class="block mx-4 p-2.5 w-full input input-bordered"  placeholder="Your message..." readonly></input>
-            <button
-              type="submit"
-              class="inline-flex justify-center p-2 text-blue-500 btn btn-ghost"
-            >
-              <svg
-                class="w-6 h-6 rotate-90"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z"></path>
-              </svg>
-            </button>
+      <main class="flex flex-col place-items-center h-screen">
+        <Nav></Nav>
+        <div class=" flex flex-col h-screen w-4/5 justify-center -mt-8 mb-8">
+          <div class="card lg:w-full/2 w-full bg-base-100">
+            <div class="card-body justify-center mb-8 p-0">
+              <div class="flex items-center justify-center rounded-lg">
+                <div class="flex w-2/5 flex-row place-items-center justify-center">
+                  <RecordingButton text="Record with WebSpeech API" />
+                  <div class="divider lg:divider-horizontal">OR</div>
+                  <RecordingButton text="Record with AssemblyAI" />
+                </div>
+              </div>
+            </div>
           </div>
-        </form>
-        <div class="flex flex-col w-full lg:flex-row">
-          <button
-            class="grid flex-grow h-16 btn btn-primary place-items-center"
-          >
-            Try with WebSpeech API
-          </button>
-          <div class="divider lg:divider-horizontal">OR</div>
-          <button
-            class="grid flex-grow h-16 btn btn-info place-items-center"
-          >
-            Try with AssemblyAI
-          </button>
+          <div id="messages" class="">
+            <div
+              class="mockup-code h-full overflow-auto shadow-xl shadow-gray-500/50"
+              style="height: 26rem; max-height: 26rem;"
+            >
+              <pre data-prefix=" you:" class="text-success">
+                {" "}
+                <code>
+                  test message test message test message test message test
+                  message test message test message test message test message
+                  test message test message test message
+                </code>
+              </pre>
+              <pre data-prefix=" bot:" class="text-primary">
+                {" "}
+                <code>I am still WIP</code>
+              </pre>
+            </div>
+          </div>
         </div>
       </main>
     </>
