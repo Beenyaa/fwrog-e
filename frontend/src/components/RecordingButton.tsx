@@ -2,26 +2,35 @@ import { Component, createSignal } from "solid-js";
 
 interface Props {
   text: string;
+  recordingState: boolean;
+  functionality?: () => {};
 }
 
-const RecordingButton: Component<Props> = ({ text }) => {
-  const [recordingStates, setRecordingStates] = createSignal({
-    class: "glass",
-    isHidden: false,
-  });
+const RecordingButton: Component<Props> = ({
+  text,
+  recordingState,
+  functionality,
+}) => {
+  const [buttonState, setButtonState] = createSignal("glass");
+  const [textState, setTextState] = createSignal("Record with ");
 
-  const changeRecordingState = () => {
-    setRecordingStates({ class: "loading", isHidden: true });
+  const toggleButtonState = () => {
+    if (recordingState) {
+      setButtonState("btn-error");
+      setTextState("Stop Recording ");
+    } else {
+      setButtonState("glass");
+      setTextState("Record with ");
+    }
+    functionality();
   };
 
   return (
     <button
-      onClick={() => changeRecordingState()}
-      class={`grid flex-grow h-16 w-full max-w-sm btn ${
-        recordingStates().class
-      } place-items-center shadow-xl shadow-gray-500/50`}
+      onClick={() => toggleButtonState()}
+      class={`grid flex-grow h-16 w-full max-w-sm btn ${buttonState()} place-items-center hover:shadow-inner shadow-xl shadow-gray-500/50`}
     >
-      <p hidden={recordingStates().isHidden}>{text}</p>
+      <p>{textState() + text}</p>
     </button>
   );
 };

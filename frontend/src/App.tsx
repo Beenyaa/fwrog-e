@@ -2,25 +2,46 @@ import { Component, createSignal, For } from "solid-js";
 import { createStore } from "solid-js/store";
 import Nav from "./components/Nav";
 import RecordingButton from "./components/RecordingButton";
+import AssemblyAIService from "./lib/assemblyAiService";
+import SpeechRecognitionService from "./lib/webSpeechRecognitionService";
 
-type message = {
-  user: string;
-  msg: string;
+type IState = {
+  recording: boolean;
+  result?: string;
 };
 
-function createStyles(user: string) {
-  throw new Error("Function not implemented.");
-}
-
-function getStyles() {
-  throw new Error("Function not implemented.");
-}
-
 export const App: Component = () => {
-  let newUser, newMsg;
-  const [state, setState] = createStore({
-    messages: [],
-  });
+  const [state, setState] = createSignal({
+    recording: false,
+    result: "",
+  } as IState);
+  const recognition = new SpeechRecognitionService();
+  const assemblyAi = new AssemblyAIService();
+  const startRecording = () => {
+    recognition.onResult((result) => {
+      setState({ result });
+    });
+    recognition.onEnd(() => {
+      setState({ recording: false });
+    });
+    recognition.start();
+    setState({ recording: true });
+  };
+  const stopRecording = () => {
+    setState({ recording: false });
+    recognition.stop();
+  };
+
+  const toggleWebSpeechRecording = () => {
+    console.log(state().recording);
+    state().recording ? stopRecording() : startRecording();
+  };
+
+  const toggleRecording = async () => {
+    const result = await assemblyAi.getTranscript();
+    console.log("result:", result);
+    setState({ result });
+  };
 
   return (
     <>
@@ -31,9 +52,17 @@ export const App: Component = () => {
             <div class="card-body justify-center mb-8 p-0">
               <div class="flex items-center justify-center rounded-lg">
                 <div class="flex w-2/5 flex-row place-items-center justify-center">
-                  <RecordingButton text="Record with WebSpeech API" />
+                  <RecordingButton
+                    text="WebSpeech API"
+                    recordingState={state().recording}
+                    functionality={async () => toggleWebSpeechRecording()}
+                  />
                   <div class="divider lg:divider-horizontal">OR</div>
-                  <RecordingButton text="Record with AssemblyAI" />
+                  <RecordingButton
+                    text="AssemblyAI"
+                    recordingState={state().recording}
+                    functionality={async () => toggleRecording()}
+                  />
                 </div>
               </div>
             </div>
@@ -45,11 +74,14 @@ export const App: Component = () => {
             >
               <pre data-prefix=" you:" class="text-success">
                 {" "}
-                <code>I am still largely WIP</code>
+                <code>
+                  {state().result ||
+                    "I should now work with WebSpeech API on most browsers, my AssemblyAI functionality is WIP"}
+                </code>
               </pre>
               <pre data-prefix=" bot:" class="text-primary">
                 {" "}
-                <code>me too</code>
+                <code>I am a work in progress :\) </code>
               </pre>
             </div>
           </div>
