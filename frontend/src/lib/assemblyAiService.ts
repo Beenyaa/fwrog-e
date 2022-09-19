@@ -1,5 +1,13 @@
 import axios from "axios";
-import "dotenv";
+
+async function audioToBase64(audioFile) {
+  return new Promise((resolve, reject) => {
+    let reader = new FileReader();
+    reader.onerror = reject;
+    reader.onload = (e) => resolve(e.target.result);
+    reader.readAsDataURL(audioFile);
+  });
+}
 
 export default class AssemblyAIService {
   private assembly;
@@ -18,10 +26,15 @@ export default class AssemblyAIService {
     });
   }
 
-  getTranscript = async () => {
+  getTranscript = async (
+    callback: (result: string, recording: boolean) => void
+  ) => {
+    let transcriptText: string;
     // Sends the audio file to AssemblyAI for transcription
-    const response = await this.assembly.post("/transcript", {
-      audio_url: this.audioURL,
+    const response = await this.assembly.post("/stream", {
+      audio_data: audioToBase64(this.audioURL).then((result) =>
+        console.log(result)
+      ),
     });
 
     // Interval for checking transcript completion
@@ -35,11 +48,13 @@ export default class AssemblyAIService {
         console.log(`Transcript Status: ${transcriptStatus}`);
       } else if (transcriptStatus === "completed") {
         console.log("\nTranscription completed!\n");
-        let transcriptText = transcript.data.text;
+        transcriptText = transcript.data.text;
         console.log(`Your transcribed text:\n\n${transcriptText}`);
         clearInterval(checkCompletionInterval);
-        return Promise.resolve(transcriptText);
+        callback("...", false);
+        return;
       }
+      callback(transcriptText, true);
     }, this.refreshInterval);
   };
 }

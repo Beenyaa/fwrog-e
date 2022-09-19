@@ -2,21 +2,33 @@ import { Component, createSignal, For } from "solid-js";
 import { createStore } from "solid-js/store";
 import Nav from "./components/Nav";
 import RecordingButton from "./components/RecordingButton";
-import AssemblyAIService from "./lib/assemblyAiService";
-import SpeechRecognitionService from "./lib/webSpeechRecognitionService";
+import AssemblyAIService from "./lib/AssemblyAiService";
+import SpeechRecognitionService from "./lib/WebSpeechRecognitionService";
+import MediaStreamRecorder from "./lib/WebMediaRecorderService";
 
 type IState = {
-  recording: boolean;
   result?: string;
+  recording?: boolean;
 };
 
 export const App: Component = () => {
   const [state, setState] = createSignal({
-    recording: false,
     result: "",
+    recording: false,
   } as IState);
+
+  const establishStream = async () => {
+    const continousStream = navigator.mediaDevices.getUserMedia({
+      audio: true,
+    });
+
+    return new MediaStream(await continousStream);
+  };
+
   const recognition = new SpeechRecognitionService();
   const assemblyAi = new AssemblyAIService();
+  // const stream = establishStream();
+  // const webRecorder = new MediaStreamRecorder(stream);
   const startRecording = () => {
     recognition.onResult((result) => {
       setState({ result });
@@ -24,23 +36,27 @@ export const App: Component = () => {
     recognition.onEnd(() => {
       setState({ recording: false });
     });
-    recognition.start();
     setState({ recording: true });
+    recognition.start();
   };
   const stopRecording = () => {
+    recognition.onEnd(() => {
+      setState({ recording: false });
+    });
     setState({ recording: false });
     recognition.stop();
   };
 
   const toggleWebSpeechRecording = () => {
-    console.log(state().recording);
+    console.log("old recording state:", state().recording);
     state().recording ? stopRecording() : startRecording();
+    console.log("new recording state:", state().recording);
   };
 
   const toggleRecording = async () => {
-    const result = await assemblyAi.getTranscript();
-    console.log("result:", result);
-    setState({ result });
+    await assemblyAi.getTranscript((result) => {
+      setState({ result });
+    });
   };
 
   return (
