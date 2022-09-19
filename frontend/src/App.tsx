@@ -1,10 +1,9 @@
-import { Component, createSignal, For } from "solid-js";
-import { createStore } from "solid-js/store";
+import { Component, createSignal } from "solid-js";
 import Nav from "./components/Nav";
 import RecordingButton from "./components/RecordingButton";
 import AssemblyAIService from "./lib/AssemblyAiService";
 import SpeechRecognitionService from "./lib/WebSpeechRecognitionService";
-import MediaStreamRecorder from "./lib/WebMediaRecorderService";
+// import MediaStreamRecorder from "./lib/WebMediaRecorderService";
 
 type IState = {
   result?: string;
@@ -17,13 +16,13 @@ export const App: Component = () => {
     recording: false,
   } as IState);
 
-  const establishStream = async () => {
-    const continousStream = navigator.mediaDevices.getUserMedia({
-      audio: true,
-    });
+  // const establishStream = async () => {
+  //   const continousStream = navigator.mediaDevices.getUserMedia({
+  //     audio: true,
+  //   });
 
-    return new MediaStream(await continousStream);
-  };
+  //   return new MediaStream(await continousStream);
+  // };
 
   const recognition = new SpeechRecognitionService();
   const assemblyAi = new AssemblyAIService();
