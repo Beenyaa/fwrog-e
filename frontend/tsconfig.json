@@ -9,6 +9,6 @@
     "jsxImportSource": "solid-js",
     "types": ["vite/client", "node"]
   },
-  "include": ["src/**/*.ts", "tests/**/*.ts"],
+  "include": ["src/**/*.ts", "tests/**/*.ts", "src/App.tsx"],
   "exclude": ["node_modules", ".vscode"]
 }
