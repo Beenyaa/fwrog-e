@@ -1,7 +1,7 @@
 import { Component, createSignal } from "solid-js";
 import Nav from "./components/Nav";
 import RecordingButton from "./components/RecordingButton";
-import AssemblyAIService from "./logic/AssemblyAI/assemblyAiService";
+import AssemblyAIService from "./logic/AssemblyAI/AssemblyAiService";
 import SpeechRecognitionService from "./logic/WebSpeech/WebSpeechRecognitionService";
 
 type IState = {
