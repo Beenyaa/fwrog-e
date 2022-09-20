@@ -1,9 +1,8 @@
 import { Component, createSignal } from "solid-js";
 import Nav from "./components/Nav";
 import RecordingButton from "./components/RecordingButton";
-import AssemblyAIService from "./logic/AssemblyAiService";
-import SpeechRecognitionService from "./logic/WebSpeechRecognitionService";
-// import MediaStreamRecorder from "./logic/WebMediaRecorderService";
+import AssemblyAIService from "./logic/AssemblyAI/assemblyAiService";
+import SpeechRecognitionService from "./logic/WebSpeech/WebSpeechRecognitionService";
 
 type IState = {
   result?: string;
@@ -16,18 +15,9 @@ export const App: Component = () => {
     recording: false,
   } as IState);
 
-  // const establishStream = async () => {
-  //   const continousStream = navigator.mediaDevices.getUserMedia({
-  //     audio: true,
-  //   });
-
-  //   return new MediaStream(await continousStream);
-  // };
-
   const recognition = new SpeechRecognitionService();
   const assemblyAi = new AssemblyAIService();
-  // const stream = establishStream();
-  // const webRecorder = new MediaStreamRecorder(stream);
+
   const startRecording = () => {
     recognition.onResult((result) => {
       setState({ result });
@@ -53,7 +43,7 @@ export const App: Component = () => {
   };
 
   const toggleRecording = async () => {
-    await assemblyAi.getTranscript((result) => {
+    await assemblyAi.run((result) => {
       setState({ result });
     });
   };
