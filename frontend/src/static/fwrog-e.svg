@@ -1,36 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<svg viewBox="0 0 500 500" width="500" height="500" xmlns="http://www.w3.org/2000/svg">
-  <g style="" transform="matrix(0.850573, 0, 0, 0.860056, 37.24575, 34.985989)">
+<svg viewBox="0 0 500 500" width="500" height="500" xmlns="http://www.w3.org/2000/svg" xmlns:bx="https://boxy-svg.com">
+  <g style="" transform="matrix(0.850573, 0, 0, 1.011627, 37.268353, 8.097146)">
     <title>FWROG-E</title>
-    <path d="M 0.838 121.293 C 0.838 54.303 56.177 0 124.438 0 C 192.7 0 248.04 54.303 248.04 121.293" style="fill: rgba(216, 216, 216, 0); stroke-width: 24px; stroke: rgb(94, 201, 146);">
+    <path d="M -17.953 154.326 C -17.953 227.986 -100.435 443.279 249.943 445.197 C 600.321 447.115 518.263 267.159 518.263 154.326" style="fill: rgba(216, 216, 216, 0); stroke-width: 24px; stroke: rgb(94, 201, 146);">
       <title>left eyelid</title>
     </path>
-    <path style="fill: rgba(255, 255, 255, 0); stroke-width: 24px; stroke: rgb(94, 201, 146);" d="M 252.22 121.293 C 252.22 54.303 307.559 0 375.82 0 C 444.082 0 499.422 54.303 499.422 121.293">
+    <path d="M -17.953 154.326 C -17.953 87.336 37.386 33.033 105.647 33.033 C 173.909 33.033 229.249 87.336 229.249 154.326" style="fill: rgba(216, 216, 216, 0); stroke-width: 24px; stroke: rgb(94, 201, 146);">
+      <title>left eyelid</title>
+    </path>
+    <path style="fill: rgba(255, 255, 255, 0); stroke-width: 24px; stroke: rgb(94, 201, 146);" d="M 271.061 154.326 C 271.061 87.336 326.4 33.033 394.661 33.033 C 462.923 33.033 518.263 87.336 518.263 154.326">
       <title>right eyelid</title>
     </path>
-    <path d="M 399.047 129.126 C 399.047 196.116 319.482 219.711 251.22 219.711 C 182.957 219.711 100.478 196.116 100.478 129.126" style="fill: rgba(216, 216, 216, 0); stroke-width: 24px; stroke: rgb(94, 201, 146);">
+    <path d="M 332.997 293.866 C 332.997 353.999 288.834 375.179 250.945 375.179 C 213.055 375.179 167.274 353.999 167.274 293.866" style="fill: rgba(216, 216, 216, 0); stroke-width: 24px; stroke: rgb(94, 200, 146);">
       <title>mouth</title>
     </path>
-    <path d="M 60.8 115.912 C 60.8 80.603 88.84 51.979 123.431 51.979 C 158.024 51.979 186.065 80.603 186.065 115.912" style="fill: rgba(216, 216, 216, 0); stroke-width: 24px; stroke: rgb(94, 201, 146);">
+    <path d="M 42.009 148.945 C 42.009 113.636 70.049 85.012 104.64 85.012 C 139.233 85.012 167.274 113.636 167.274 148.945" style="fill: rgba(216, 216, 216, 0); stroke-width: 24px; stroke: rgb(94, 201, 146);">
       <title>left eye</title>
     </path>
-    <path d="M 314.156 115.912 C 314.156 80.603 342.197 51.979 376.789 51.979 C 411.381 51.979 439.421 80.603 439.421 115.912" style="fill: rgba(255, 255, 255, 0); stroke-width: 24px; stroke: rgb(94, 201, 146);">
+    <path d="M 332.997 148.945 C 332.997 113.636 361.038 85.012 395.63 85.012 C 430.222 85.012 458.262 113.636 458.262 148.945" style="fill: rgba(255, 255, 255, 0); stroke-width: 24px; stroke: rgb(94, 201, 146);">
       <title>right eye</title>
     </path>
-    <path d="M 499.425 129.126 C 499.422 196.429 320.482 476.411 252.22 476.411 C 183.959 476.411 0.838 195.177 0.841 129.126" style="fill: rgba(216, 216, 216, 0); stroke-width: 24px; stroke: rgb(94, 201, 146);">
-      <title>body</title>
+    <path d="M 271.061 148.945 C 271.061 148.945 229.249 148.945 229.249 148.945" style="fill: rgba(216, 216, 216, 0); stroke-width: 24px; stroke: rgb(94, 201, 146); stroke-linecap: square; stroke-miterlimit: 1;">
+      <title>mouth</title>
     </path>
-    <path d="M 248.04 475.79 C 240.632 475.79 230.396 499.996 162.135 499.996 C 93.873 499.996 101.478 402.095 100.271 335.106" style="fill: rgba(216, 216, 216, 0); stroke-width: 24px; stroke: rgb(94, 201, 146);">
-      <title>left hind leg</title>
-    </path>
-    <path d="M 100.139 335.103 C 92.731 335.103 125.087 499.996 56.825 499.996 C -11.436 499.996 0.863 196.116 0.863 129.126" style="fill: rgba(216, 216, 216, 0); stroke-width: 24px; stroke: rgb(94, 201, 146);">
-      <title>left front leg</title>
-    </path>
-    <path d="M 252.22 475.794 C 259.628 475.794 269.864 500 338.125 500 C 406.387 500 398.782 402.099 399.989 335.11" style="fill: rgba(216, 216, 216, 0); stroke-width: 24px; stroke: rgb(94, 201, 146);">
-      <title>right hind leg</title>
-    </path>
-    <path d="M 400.122 335.107 C 407.53 335.107 375.174 500 443.436 500 C 511.697 500 499.398 196.12 499.398 129.13" style="fill: rgba(216, 216, 216, 0); stroke-width: 24px; stroke: rgb(94, 201, 146);">
-      <title>right front leg</title>
+    <ellipse style="fill: rgb(94, 200, 146); stroke: rgba(0, 0, 0, 0);" cx="228.424" cy="182.057" rx="9.444" ry="9.08"/>
+    <ellipse style="fill: rgb(94, 200, 146); stroke: rgba(0, 0, 0, 0);" cx="271.221" cy="182.057" rx="9.444" ry="9.08"/>
+    <path d="M 330.207 210.245 C 330.208 270.98 286.045 292.372 248.156 292.372 C 210.266 292.372 164.485 270.98 164.484 210.245" style="fill: rgba(216, 216, 216, 0); stroke-width: 24px; stroke: rgb(94, 200, 146);" transform="matrix(-0.999924, -0.0122, 0.012474, -0.999924, 494.834383, 508.427928)" bx:origin="0.51 0.517">
+      <title>mouth</title>
     </path>
   </g>
 </svg>

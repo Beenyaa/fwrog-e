@@ -9,14 +9,14 @@ type IState = {
   recording?: boolean;
 };
 
+const recognition = new SpeechRecognitionService();
+const assemblyAi = new AssemblyAIService();
+
 export const App: Component = () => {
   const [state, setState] = createSignal({
     result: "",
     recording: false,
   } as IState);
-
-  const recognition = new SpeechRecognitionService();
-  const assemblyAi = new AssemblyAIService();
 
   const startRecording = () => {
     recognition.onResult((result) => {

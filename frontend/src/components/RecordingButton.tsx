@@ -14,7 +14,7 @@ const RecordingButton: Component<Props> = ({
   const [buttonState, setButtonState] = createSignal({ class: "glass" });
   const [textState, setTextState] = createSignal({ text: "Record with " });
 
-  const toggleButtonState = () => {
+  const toggleButtonState = async () => {
     if (recordingState === true) {
       setButtonState({ class: "btn-error" });
       setTextState({ text: "Stop Recording " });
@@ -29,11 +29,11 @@ const RecordingButton: Component<Props> = ({
     functionality();
   };
 
-  functionality()
+  functionality();
 
   return (
     <button
-      onMouseUp={() => toggleButtonState()}
+      onclick={toggleButtonState}
       class={`grid flex-grow h-16 w-full max-w-sm btn ${
         buttonState().class
       } place-items-center hover:shadow-inner shadow-xl shadow-gray-500/50`}

@@ -14,7 +14,6 @@ export default class SpeechRecognitionService {
   onResult = (callback: (result: string, recording: boolean) => void) => {
     this.recognition.onresult = (event: SpeechRecognitionEvent) => {
       if (!event.results) {
-        callback("", false);
         return;
       }
       const lastResult = event.results[event.results.length - 1];
@@ -23,7 +22,7 @@ export default class SpeechRecognitionService {
         callback(lastResult[0].transcript, true);
         return;
       }
-      callback(lastResult[0].transcript, false);
+      // callback(lastResult[0].transcript, false);
     };
   };
 
