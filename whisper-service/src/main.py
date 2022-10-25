@@ -1,10 +1,8 @@
 from fastapi import (
-    FastAPI, WebSocket, WebSocketDisconnect, Request, Response
+    FastAPI, WebSocket, WebSocketDisconnect
 )
 import whisper
-import os
 from typing import List
-os.system("pip install git+https://github.com/openai/whisper.git")
 
 app = FastAPI()
 

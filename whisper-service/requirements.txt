@@ -33,4 +33,4 @@ urllib3==1.26.12
 uvicorn==0.18.3
 watchgod==0.8.2
 websockets==10.3
-whisper @ git+https://github.com/openai/whisper.git@9f70a352f9f8630ab3aa0d06af5cb9532bd8c21d
+whisper @ git+https://github.com/openai/whisper.git
