@@ -6,11 +6,16 @@ name = "pypi"
 [packages]
 fastapi = "*"
 python-dotenv = "*"
-whisper = "*"
 starlette = "*"
 uvicorn = "*"
 watchgod = "*"
 websockets = "*"
+wavio = "*"
+rq = "*"
+torch = "*"
+whisper = {git = "https://github.com/openai/whisper.git"}
+openai = "*"
+asgiref = "*"
 
 [dev-packages]
 autopep8 = "*"
