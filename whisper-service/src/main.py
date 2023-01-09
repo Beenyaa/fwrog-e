@@ -1,63 +1,88 @@
-from fastapi import (
-    FastAPI, WebSocket, WebSocketDisconnect
-)
-import whisper
-from typing import List
+import logging
+import asyncio
+import uuid
+from fastapi import FastAPI, WebSocket, WebSocketDisconnect
 
+from src.whispers_repository import WhispersRepository
+from src.socket_manager import SocketManager
+
+# Initialize the FastAPI app
 app = FastAPI()
 
-model = whisper.load_model("large")
+# Initialize a logger to log any errors that occur
+logger = logging.getLogger(__name__)
+
+# Initialize the dictionaries for storing socket managers, queues and whisperings
+socketManagers = {}
+queues = {}
+whisperings = {}
 
 
-async def inference(audio):
-    audio = whisper.load_audio(audio)
-    audio = whisper.pad_or_trim(audio)
-
-    mel = whisper.log_mel_spectrogram(audio).to(model.device)
-
-    _, probs = model.detect_language(mel)
-
-    options = whisper.DecodingOptions(fp16=False)
-    result = whisper.decode(model, mel, options)
-
-    print(result.text)
-    return result.text
-
-
-class SocketManager:
-    def __init__(self):
-        self.active_connections: List[(WebSocket)] = []
-
-    async def connect(self, websocket: WebSocket):
-        await websocket.accept()
-        self.active_connections.append((websocket))
-
-    def disconnect(self, websocket: WebSocket):
-        self.active_connections.remove((websocket))
-
-    async def broadcast(self, data: dict):
-        for connection in self.active_connections:
-            await connection[0].send_json(data)
-
-
-manager = SocketManager()
+def generate_unique_id():
+    # Generate and return a unique ID
+    return str(uuid.uuid4())
 
 
 @app.websocket("/")
-async def transcribe(websocket: WebSocket):
-    if websocket:
-        await manager.connect(websocket)
+async def whispers(websocket: WebSocket):
+    # Add try-except block to handle any exceptions that occur
+    try:
+        # Generate a unique ID for the client
+        user_id = generate_unique_id()
+
+        # Initialize a queue for storing transcription data and another for storing AI responses
+        queues[user_id + "transcription"] = asyncio.Queue()
+        queues[user_id + "reasoning"] = asyncio.Queue()
+
+        # Initialize a SocketManager for the client
+        socketManagers[user_id] = SocketManager()
+
+        # Initialize a Whispers Repository for the client
+        whisperings[user_id] = WhispersRepository(
+            queues[user_id + "transcription"], queues[user_id + "reasoning"], socketManagers[user_id])
+
+        # Connect the WebSocket
+        await socketManagers[user_id].connect(websocket)
+
+        # Send a message to all connected clients to indicate that a new connection has been established
         response = {
-            "status": "connection established"
+            "status": "connection_established"
         }
-        try:
-            await manager.broadcast(response)
-            while True:
-                data = await websocket.receive_json()
+        await socketManagers[user_id].broadcast(websocket, response)
 
-                await inference(data)
+        while True:
+            # Receive audio data from the WebSocket connection
+            recording = await websocket.receive_json()
+            recording = recording['audio_data']
 
-        except WebSocketDisconnect:
-            manager.disconnect(websocket)
-            response['status'] = "left"
-            await manager.broadcast(response)
+            # Put the audio data in the transcription queue
+            await queues[user_id + "transcription"].put(recording)
+
+            # Create a task to process the audio data from the queue
+            asyncio.create_task(
+                whisperings[user_id].process_audio_data_from_queue(websocket))
+
+            # Create a task to get the AI response
+            asyncio.create_task(
+                whisperings[user_id].get_ai_response(websocket))
+
+    except WebSocketDisconnect:
+        # Disconnect the WebSocket and broadcast a message to all connected clients
+        socketManagers[user_id].disconnect(websocket)
+        queues.pop(user_id + "transcription")
+        queues.pop(user_id + "reasoning")
+        whisperings.pop(user_id)
+        response["status"] = "left"
+        await socketManagers[user_id].broadcast(websocket, response)
+    except Exception as e:
+        # Log any errors that occur
+        logger.exception(e)
+
+
+async def main():
+    # Start the audio data processing task
+    # Start the websocket server
+    await app.run()
+
+if __name__ == "__main__":
+    asyncio.run(main())
