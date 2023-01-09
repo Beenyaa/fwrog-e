@@ -56,7 +56,7 @@ async def process_audio_data(audio_data) -> str | None:
 
     # Return cleaned text if wake word is present in message
     for wake_word in config.wake_words:
-        if wake_word in config.message or :
+        if wake_word in config.message:
             return __clean_text(config.message, wake_word)
 
     # Reset message
