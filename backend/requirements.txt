@@ -1,0 +1,51 @@
+-i https://pypi.org/simple
+aiohttp==3.8.3
+aiosignal==1.3.1 ; python_version >= '3.7'
+anyio==3.6.2 ; python_full_version >= '3.6.2'
+asgiref==3.6.0
+async-timeout==4.0.2 ; python_version >= '3.6'
+asyncio==3.4.3
+attrs==22.2.0 ; python_version >= '3.6'
+certifi==2022.12.7 ; python_version >= '3.6'
+charset-normalizer==2.1.1 ; python_full_version >= '3.6.0'
+click==8.1.3 ; python_version >= '3.7'
+coloredlogs==15.0.1 ; python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3, 3.4'
+fastapi==0.89.1
+ffmpeg-python==0.2.0
+filelock==3.9.0 ; python_version >= '3.7'
+flatbuffers==23.1.4
+frozenlist==1.3.3 ; python_version >= '3.7'
+future==0.18.3 ; python_version >= '2.6' and python_version not in '3.0, 3.1, 3.2, 3.3'
+h11==0.14.0 ; python_version >= '3.7'
+huggingface-hub==0.11.1 ; python_full_version >= '3.7.0'
+humanfriendly==10.0 ; python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3, 3.4'
+idna==3.4 ; python_version >= '3.5'
+more-itertools==9.0.0 ; python_version >= '3.7'
+mpmath==1.2.1
+multidict==6.0.4 ; python_version >= '3.7'
+numpy==1.24.1 ; python_version >= '3.8'
+onnxruntime==1.13.1
+openai==0.26.1
+packaging==23.0 ; python_version >= '3.7'
+protobuf==4.21.12 ; python_version >= '3.7'
+pydantic==1.10.4 ; python_version >= '3.7'
+python-dotenv==0.21.0
+pyyaml==6.0 ; python_version >= '3.6'
+regex==2022.10.31 ; python_version >= '3.6'
+requests==2.28.2 ; python_version >= '3.7' and python_version < '4'
+sniffio==1.3.0 ; python_version >= '3.7'
+starlette==0.22.0
+sympy==1.11.1 ; python_version >= '3.8'
+tokenizers==0.13.2
+torch==1.13.1
+torchaudio==0.13.1
+tqdm==4.64.1 ; python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3'
+transformers==4.25.1 ; python_full_version >= '3.7.0'
+typing-extensions==4.4.0 ; python_version >= '3.7'
+urllib3==1.26.14 ; python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3, 3.4, 3.5'
+uvicorn==0.20.0
+watchgod==0.8.2
+wavio==0.0.7
+websockets==10.4
+git+https://github.com/openai/whisper.git@f82bc59f5ea234d4b97fb2860842ed38519f7e65#egg=whisper
+yarl==1.8.2 ; python_version >= '3.7'

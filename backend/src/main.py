@@ -3,7 +3,7 @@ import asyncio
 import uuid
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect
 
-from src.whispers_repository import WhispersRepository
+from src.whispers_session import WhispersSession
 from src.socket_manager import SocketManager
 
 # Initialize the FastAPI app
@@ -38,7 +38,7 @@ async def whispers(websocket: WebSocket):
         socketManagers[user_id] = SocketManager()
 
         # Initialize a Whispers Repository for the client
-        whisperings[user_id] = WhispersRepository(
+        whisperings[user_id] = WhispersSession(
             queues[user_id + "transcription"], queues[user_id + "reasoning"], socketManagers[user_id])
 
         # Connect the WebSocket
@@ -59,11 +59,11 @@ async def whispers(websocket: WebSocket):
             await queues[user_id + "transcription"].put(recording)
 
             # Create a task to process the audio data from the queue
-            asyncio.create_task(
+            whisper_task = asyncio.create_task(
                 whisperings[user_id].process_audio_data_from_queue(websocket))
 
-            # Create a task to get the AI response
-            asyncio.create_task(
+            # # Create a task to get the AI response
+            response_task = asyncio.create_task(
                 whisperings[user_id].get_ai_response(websocket))
 
     except WebSocketDisconnect:
@@ -85,4 +85,6 @@ async def main():
     await app.run()
 
 if __name__ == "__main__":
+    loop = asyncio.new_event_loop()
+    asyncio.set_event_loop(loop)
     asyncio.run(main())

@@ -1,14 +1,18 @@
 {
   "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
     "target": "ESNext",
     "module": "ESNext",
     "moduleResolution": "node",
-    "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true,
-    "jsx": "preserve",
     "jsxImportSource": "solid-js",
-    "types": ["vite/client", "node"]
+    "jsx": "preserve",
+    "types": ["vite/client", "node"],
+    "baseUrl": "./",
+    "paths": {
+      "~/*": ["./src/*"]
+    }
   },
-  "include": ["src/**/*.ts", "tests/**/*.ts", "src/App.tsx"],
+  "include": ["src/**/*.ts", "tests/**/*.ts", "src/routes/index.tsx"],
   "exclude": ["node_modules", ".vscode"]
 }

@@ -1,45 +1,49 @@
 import { Component, createSignal } from "solid-js";
+import microphoneTurnOn from "../static/fwrog-e-smiling.svg";
+import microphoneTurnOff from "../static/fwrog-e.svg";
 
 interface Props {
-  text: string;
+  // text: string;
   recordingState: boolean;
-  functionality?: () => {};
+  onToggleRecording?: Function;
 }
 
 const RecordingButton: Component<Props> = ({
-  text,
+  // text,
   recordingState,
-  functionality,
+  onToggleRecording,
 }) => {
-  const [buttonState, setButtonState] = createSignal({ class: "glass" });
-  const [textState, setTextState] = createSignal({ text: "Record with " });
+  const [buttonState, setButtonState] = createSignal({
+    class: "glass",
+    image: microphoneTurnOn,
+  });
 
   const toggleButtonState = async () => {
-    if (recordingState === true) {
-      setButtonState({ class: "btn-error" });
-      setTextState({ text: "Stop Recording " });
+    if (buttonState().image === microphoneTurnOn) {
+      setButtonState({ class: "glass", image: microphoneTurnOff });
       console.log(buttonState());
-      console.log(textState());
+      onToggleRecording;
     } else {
-      setButtonState({ class: "glass" });
-      setTextState({ text: "Record with " });
+      setButtonState({ class: "glass", image: microphoneTurnOn });
       console.log(buttonState());
-      console.log(textState());
     }
-    functionality();
   };
 
-  functionality();
-
   return (
-    <button
-      onclick={toggleButtonState}
-      class={`grid flex-grow h-16 w-full max-w-sm btn ${
-        buttonState().class
-      } place-items-center hover:shadow-inner shadow-xl shadow-gray-500/50`}
+    <div
+      class="tooltip tooltip-right"
+      style={"overflow-wrap: break-word;"}
+      data-tip="press once to start recording your voice and press a second time to stop. "
     >
-      <p>{textState().text + text}</p>
-    </button>
+      <button
+        onclick={toggleButtonState}
+        class={`grid h-16 w-16 btn btn-circle ${
+          buttonState().class
+        } place-items-center hover:shadow-inner shadow-xl shadow-gray-500/50`}
+      >
+        <img src={buttonState().image} width="50" height="50" />
+      </button>
+    </div>
   );
 };
 

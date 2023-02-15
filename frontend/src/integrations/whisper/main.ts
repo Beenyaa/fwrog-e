@@ -1,77 +1,71 @@
-import axios from "axios";
 import RecordRTC, { StereoAudioRecorder } from "recordrtc";
 
-export default class AssemblyAIService {
-  private realtimeSessionToken;
-  private APIKey = import.meta.env.VITE_ASSEMBLYAI_API_KEY;
-  private isRecording = false;
+new RTCPeerConnection().createOffer();
+
+type Conversation = {
+  status: "connection_established" | "no_speech" | "broadcasting";
+  transcription?: string;
+  reasoning?: string;
+};
+
+export default class WhisperService {
+  // private realtimeSessionToken;
   private socket: WebSocket;
-  private recorder;
+  private recorder: RecordRTC;
+  private wsURL: string;
 
   constructor() {
-    // Setting up the AssemblyAI headers
-    try {
-      this.realtimeSessionToken = axios.create({
-        baseURL: "https://api.assemblyai.com/v2",
-        headers: {
-          authorization: this.APIKey,
-          "content-type": "application/json",
-        },
-      });
-    } catch (error) {
-      console.log(error);
-    }
+    this.wsURL = import.meta.env.VITE_WEBSOCKET_SERVER_URL;
   }
 
-  run = (callback: (result: string, recording: boolean) => void) => {
-    if (this.isRecording) {
-      if (this.socket) {
-        this.socket.send(JSON.stringify({ terminate_session: true }));
-        this.socket.close();
-        this.socket = null;
-      }
+  run = (callback: (transcription: string, reasoning: string) => void) => {
+    if (this.socket) {
+      this.socket.send(JSON.stringify({ terminate_session: true }));
+      this.socket.close();
+      this.socket = null;
+    }
 
-      if (this.recorder) {
-        this.recorder.pauseRecording();
-        this.recorder = null;
-      }
+    if (this.recorder) {
+      this.recorder.pauseRecording();
+      this.recorder = null;
     }
 
     // establish wss with AssemblyAI at 16000 sample rate
-    this.socket = new WebSocket(
-      `wss://api.assemblyai.com/v2/realtime/ws?sample_rate=16000&token=${this.realtimeSessionToken}`
-    );
+    this.socket = new WebSocket(this.wsURL);
+    // this.socket = new ws();
 
     // handle incoming messages to display transcription to the DOM
-    const texts = {};
+    let old_transcription = "";
+    let old_reasoning = "";
     this.socket.onmessage = (message) => {
-      let msg = "";
-      const res = JSON.parse(message.data);
-      texts[res.audio_start] = res.text;
-      const keys = Object.keys(texts);
-      keys.sort((a: any, b: any) => a - b);
-      for (const key of keys) {
-        if (texts[key]) {
-          msg += ` ${texts[key]}`;
-        }
+      const response: Conversation = JSON.parse(message.data.toString());
+      console.log("response:", response);
+
+      if (response.transcription) {
+        old_transcription = response.transcription;
+        callback(response.transcription, old_reasoning);
       }
-      callback(msg, true);
+      if (response.reasoning) {
+        old_reasoning = response.reasoning;
+        callback(old_transcription, response.reasoning);
+      }
+      callback(old_transcription, old_reasoning);
     };
 
     this.socket.onerror = (event) => {
       console.error(event);
       this.socket.close();
-      callback("", false);
+      callback("", "");
     };
 
     this.socket.onclose = (event) => {
       console.log(event);
       this.socket = null;
+      this.recorder = null;
     };
 
     this.socket.onopen = () => {
       // once socket is open, begin recording
-      callback("", false);
       navigator.mediaDevices
         .getUserMedia({ audio: true })
         .then((stream) => {
@@ -79,7 +73,7 @@ export default class AssemblyAIService {
             type: "audio",
             mimeType: "audio/webm;codecs=pcm", // endpoint requires 16bit PCM audio
             recorderType: StereoAudioRecorder,
-            timeSlice: 250, // set 250 ms intervals of data that sends to AAI
+            timeSlice: 900,
             desiredSampRate: 16000,
             numberOfAudioChannels: 1, // real-time requires only one channel
             bufferSize: 4096,
